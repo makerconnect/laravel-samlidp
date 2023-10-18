@@ -55,6 +55,7 @@ class LogoutController extends Controller
                 $idp_name = session('saml.idp_name');
                 if ( ! empty( $idp_name ) ) {
                     $slo_redirect .= '?c=' . $idp_name;
+                    session()->forget('saml.idp_name');
                     // if variable is not set, then user logged in with a password, bring them to the regular form
                 } else {
                     $slo_redirect = 'login';
