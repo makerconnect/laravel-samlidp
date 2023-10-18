@@ -51,6 +51,14 @@ class LogoutController extends Controller
         foreach ($redirects as $referer => $redirectPath) {
             if (Str::startsWith($http_referer, $referer)) {
                 $slo_redirect = $redirectPath;
+                // if we have this custom parameter set - it is an SSO-enabled user
+                $idp_name = session('saml.idp_name');
+                if ( ! empty( $idp_name ) ) {
+                    $slo_redirect .= '&c=' . $idp_name;
+                    // if variable is not set, then user logged in with a password, bring them to the regular form
+                } else {
+                    $slo_redirect = 'login';
+                }
                 break;
             }
         }
