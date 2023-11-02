@@ -54,11 +54,11 @@ class LogoutController extends Controller
                 // if we have this custom parameter set - it is an SSO-enabled user
                 $idp_name = session('saml.idp_name');
                 if ( ! empty( $idp_name ) ) {
-                    $slo_redirect .= '?c=' . $idp_name;
+                    $slo_redirect .= '/login-with-sso?c=' . $idp_name;
                     session()->forget('saml.idp_name');
                     // if variable is not set, then user logged in with a password, bring them to the regular form
                 } else {
-                    $slo_redirect = 'login';
+                    $slo_redirect .= '/login';
                 }
                 break;
             }
