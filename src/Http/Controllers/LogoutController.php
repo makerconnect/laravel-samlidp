@@ -38,6 +38,8 @@ class LogoutController extends Controller
 
         $request->session()->forget('saml.slo');
         $request->session()->forget('saml.slo_redirect');
+        // remove our custom set variable
+        session()->forget('logged_in_v2');
 
         return redirect($slo_redirect);
     }
